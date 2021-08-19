@@ -1,10 +1,10 @@
 #ifndef _LOG_H_
 #define _LOG_H_
 
-// 日志类别
+// 鏃ュ織绫诲埆
 extern int  LogLevel[5];
 
-// 日志
+// 鏃ュ織
 void LOG(const char* file, int line, int level, int status, const char* fmt, ...);
 
 

@@ -15,10 +15,10 @@
 #endif // _WIN32
 #include "log.h"
 
-// ×î´óLog³¤¶È
+// æœ€å¤§Logé•¿åº¦
 #define MAX_STRING_LEN	10240
 
-// ÈÕÖ¾Àà±ğ
+// æ—¥å¿—ç±»åˆ«
 #define NO_LOG_LEVEL	0
 #define DEBUG_LEVEL		1
 #define INFO_LEVEL		2
@@ -34,16 +34,16 @@ int LogLevel[5] =
 	ERROR_LEVEL
 };
 
-// Àà±ğÃû³Æ
+// ç±»åˆ«åç§°
 static char LevelName[5][10] = { "NOLOG", "DEBUG", "INFO", "WARNING", "ERROR" };
 
-// »ñÈ¡µ±Ç°Ê±¼äµÄ×Ö·û´®ĞÎÊ½
+// è·å–å½“å‰æ—¶é—´çš„å­—ç¬¦ä¸²å½¢å¼
 static int GetCurTime(char* timeString)
 {
 	return strftime(timeString, 33, "%Y.%m.%d %H:%M:%S", localtime(&(time(NULL))));
 }
 
-// ´ò¿ªÈÕÖ¾ÎÄ¼ş
+// æ‰“å¼€æ—¥å¿—æ–‡ä»¶
 static int OpenLogFile(int* pf)
 {
 	char fileName[1024];
@@ -76,16 +76,16 @@ static void WriteLog(const char* file, int line, int level, int status, const ch
 	memset(log, 0, MAX_STRING_LEN);
 	memset(timeString, 0, 64);
 
-	//¼ÓÈëLOGÊ±¼ä
+	//åŠ å…¥LOGæ—¶é—´
 	len = GetCurTime(timeString);
 	len = sprintf(log, "[%s] ", timeString);
 	length = len;
 
-	//¼ÓÈëLOGµÈ¼¶
+	//åŠ å…¥LOGç­‰çº§
 	len = sprintf(log + length, "[%s] ", LevelName[level]);
 	length += len;
 
-	//¼ÓÈëLOG×´Ì¬
+	//åŠ å…¥LOGçŠ¶æ€
 	if (status != 0)
 	{
 		len = sprintf(log + length, "[ERRNO is %d] ", status);
@@ -96,28 +96,28 @@ static void WriteLog(const char* file, int line, int level, int status, const ch
 	}
 	length += len;
 
-	//¼ÓÈëLOGĞÅÏ¢
+	//åŠ å…¥LOGä¿¡æ¯
 	len = vsprintf(log + length, fmt, args);
 	length += len;
 
-	//¼ÓÈëLOG·¢ÉúÎÄ¼ş
+	//åŠ å…¥LOGå‘ç”Ÿæ–‡ä»¶
 	len = sprintf(log + length, " [%s]", file);
 	length += len;
 
-	//¼ÓÈëLOG·¢ÉúĞĞÊı
+	//åŠ å…¥LOGå‘ç”Ÿè¡Œæ•°
 	len = sprintf(log + length, " [%d]\n", line);
 	length += len;
 
-	//´ò¿ªLOGÎÄ¼ş
+	//æ‰“å¼€LOGæ–‡ä»¶
 	if (OpenLogFile(&pf))
 	{
 		return;
 	}
 
-	//Ğ´ÈëLOGÎÄ¼ş
+	//å†™å…¥LOGæ–‡ä»¶
 	write(pf, log, length);
 
-	//¹Ø±ÕÎÄ¼ş
+	//å…³é—­æ–‡ä»¶
 	close(pf);
 
 	return;
