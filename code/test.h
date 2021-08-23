@@ -1,6 +1,8 @@
 #ifndef _TEST_H_
 #define _TEST_H_
 
+#include "define.h"
+
 typedef enum _Sex
 {
 	MALE,
@@ -22,7 +24,7 @@ typedef struct _Person
 /// <param name="stream">输出数据流</param>
 /// <param name="length">输出数据流长度</param>
 /// <returns>返回0表示编码成功，返回-1表示失败</returns>
-int EncodePerson(Person* person, UINT8** stream, UINT32* length);
+int EncodePerson(Person* person, UInt8** stream, UInt32* length);
 
 /// <summary>
 /// 解码
@@ -31,7 +33,7 @@ int EncodePerson(Person* person, UINT8** stream, UINT32* length);
 /// <param name="length">输入数据流长度</param>
 /// <param name="person">输出数据</param>
 /// <returns>返回0表示解码成功，返回-1表示失败</returns>
-int DecodePerson(UINT8* stream, UINT32 length, Person** person);
+int DecodePerson(UInt8* stream, UInt32 length, Person** person);
 
 /// <summary>
 /// 比较是否相等
@@ -39,7 +41,7 @@ int DecodePerson(UINT8* stream, UINT32 length, Person** person);
 /// <param name="p1">输入</param>
 /// <param name="p2">输入</param>
 /// <returns>返回true表示相等，返回false表示不等</returns>
-bool IsPersonEqual(Person* p1, Person* p2);
+int IsPersonEqual(Person* p1, Person* p2);
 
 /// <summary>
 /// 打印
@@ -52,6 +54,6 @@ void PrintPersonInfo(Person* person);
 /// </summary>
 /// <param name="stream">输入</param>
 /// <param name="length">输入</param>
-void WriteStreamToFile(UINT8* stream, UINT32 length);
+void WriteStreamToFile(UInt8* stream, UInt32 length);
 
 #endif // !_TEST_H_

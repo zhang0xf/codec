@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
 #include <string.h>
 #include "test.h"
 
@@ -12,19 +13,19 @@ int main(int argc, char* argv[])
 	Person person;
 	strcpy(person.name, "zhangfei");
 	person.age = 18;
-	person.sex = Sex.MALE;
+	person.sex = MALE;
 	strcpy(person.introduction, "this is introduction");
 
-	UINT8* stream = NULL:
-	UINT32 len = 0;
+	UInt8* stream = NULL;
+	UInt32 len = 0;
 
 	// ±àÂë
-	EncodePerson(person, &stream, &len);
+	EncodePerson(&person, &stream, &len);
 
 	// Ð´ÎÄ¼þ
 	WriteStreamToFile(stream, len);
 
-	Person* pPerson = NULL:
+	Person* pPerson = NULL;
 
 	// ½âÂë
 	DecodePerson(stream, len, &pPerson);

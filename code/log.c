@@ -1,4 +1,4 @@
-#define  _CRT_SECURE_NO_WARNINGS 
+﻿#define  _CRT_SECURE_NO_WARNINGS 
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -16,14 +16,14 @@
 #include "log.h"
 
 // 最大Log长度
-#define MAX_STRING_LEN	10240
+#define MAX_STRING_LEN 10240
 
 // 日志类别
-#define NO_LOG_LEVEL	0
-#define DEBUG_LEVEL		1
-#define INFO_LEVEL		2
-#define WARNING_LEVEL	3
-#define ERROR_LEVEL		4
+#define NO_LOG_LEVEL 0
+#define DEBUG_LEVEL 1
+#define INFO_LEVEL 2
+#define WARNING_LEVEL 3
+#define ERROR_LEVEL 4
 
 int LogLevel[5] = 
 {
@@ -40,7 +40,8 @@ static char LevelName[5][10] = { "NOLOG", "DEBUG", "INFO", "WARNING", "ERROR" };
 // 获取当前时间的字符串形式
 static int GetCurTime(char* timeString)
 {
-	return strftime(timeString, 33, "%Y.%m.%d %H:%M:%S", localtime(&(time(NULL))));
+	time_t tm = time(NULL);
+	return strftime(timeString, 33, "%Y.%m.%d %H:%M:%S", localtime(&tm));
 }
 
 // 打开日志文件
