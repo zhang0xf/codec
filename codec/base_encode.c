@@ -5,7 +5,7 @@
 #include <string.h>
 #include <locale.h>
 #include <stdlib.h>
-#include "encode.h"
+#include "base_encode.h"
 #include "log.h"
 
 #define MemoryFree(mem) {if(mem) {free(mem); mem=NULL;}}  
@@ -29,11 +29,6 @@
 		if (point==NULL) return 7002; \
         memset(point,0,size)
 
-/// <summary>
-/// 计算length所占用的字节数
-/// </summary>
-/// <param name="length">输入长度</param>
-/// <returns>返回该长度所占用的字节数</returns>
 static UInt32 CountLengthBytes(UInt32 length)
 {
 	if (length <= 0x7F)
@@ -53,21 +48,12 @@ static UInt32 CountLengthBytes(UInt32 length)
 	}
 }
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name="pAnyIn"></param>
-/// <param name="cTag"></param>
-/// <param name="ppAnyOut"></param>
-/// <param name="ppUint8Value"></param>
-/// <returns></returns>
 static int EncodeTagAndLength(AnyBuf* pAnyIn, UInt8 cTag, AnyBuf** ppAnyOut, UInt8** ppUint8Value)
 {
 	AnyBuf* pMidAny = NULL;
 	UInt8* pMidValue = NULL, cIdentifier;
 	UInt32 iMidSize, iMidSizeOf, iMidLength, i;
 
-	//计算长度,Bitstring和Integer类型与其他类型分开处理
 	if ((cTag != ID_BITSTRING) && (cTag != ID_INTEGER))
 		iMidSize = pAnyIn->dataLen;
 	else
@@ -93,7 +79,7 @@ static int EncodeTagAndLength(AnyBuf* pAnyIn, UInt8 cTag, AnyBuf** ppAnyOut, UIn
 		iMidSize = 11;
 	}
 	pMidAny->pData = pMidValue;
-	//检测Tag值
+
 	if (cTag & CONTEXT_SPECIFIC)
 		cIdentifier = cTag;
 	else
@@ -128,7 +114,7 @@ static int EncodeTagAndLength(AnyBuf* pAnyIn, UInt8 cTag, AnyBuf** ppAnyOut, UIn
 		if (*(pAnyIn->pData) & FIRST_YES_ID_MASK)
 			*(pMidValue++) = 0x0;
 	}
-	//输出信息
+
 	*ppUint8Value = pMidValue;
 	*ppAnyOut = pMidAny;
 
@@ -146,7 +132,6 @@ static int EncodeBmpString(BUF_BMPSTRING* pBmpString, BUF_BMPSTRING** ppBmpStrin
 	UInt8 cTag = ID_STRING_BMP;
 	AnyBuf* pMidBmpString = NULL;
 
-	//编码
 	ret = EncodeTagAndLength(pBmpString, cTag, &pMidBmpString, &pMidValue);
 	if (ret != TLV_NO_ERROR)
 	{
@@ -157,10 +142,8 @@ static int EncodeBmpString(BUF_BMPSTRING* pBmpString, BUF_BMPSTRING** ppBmpStrin
 	pMidData = pBmpString->pData;
 	memcpy(pMidValue, pMidData, pBmpString->dataLen);
 
-	//输出
 	*ppBmpString = pMidBmpString;
 
-	//中间变量赋空
 	pMidBmpString = NULL;
 	pMidData = NULL;
 	pMidValue = NULL;

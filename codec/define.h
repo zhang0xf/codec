@@ -9,11 +9,9 @@ typedef unsigned long UInt32;
 #define TRUE 1
 #define FALSE 0
 
-// 内存类型
 #define MEMORY_STATIC 1
 #define MEMORY_MALLOC 2
 
-// 错误类型
 #define TLV_NO_ERROR 0	
 #define TLV_MEMORY_ERROR 200
 #define TLV_LENGTH_ERROR 201
@@ -21,7 +19,6 @@ typedef unsigned long UInt32;
 #define TLV_DATA_RANGE_ERROR 203
 #define TLV_INVALID_TAG_ERROR 204
 
-// 数据类型
 enum {
 	ID_RESERVED,
 	ID_BOOLEAN,
@@ -56,7 +53,7 @@ enum {
 	ID_STRING_BMP
 };
 
-// 掩码
+// 鎺╃爜
 #define CLASS_MASK 0xC0
 #define CONSTRUCTED_MASK 0x20
 #define SHORT_ID_MASK 0x1F

@@ -15,7 +15,7 @@
 #endif // _WIN32
 #include "log.h"
 
-// 最大Log长度
+// 最大LOG长度
 #define MAX_STRING_LEN 10240
 
 // 日志类别

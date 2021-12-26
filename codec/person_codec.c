@@ -1,8 +1,8 @@
 #include <stddef.h>
 #include <string.h>
-#include "test.h"
 #include "log.h"
-#include "encode.h"
+#include "base_encode.h"
+#include "person_codec.h"
 
 int EncodePerson(Person* person, UInt8** stream, UInt32* length)
 {
@@ -11,7 +11,6 @@ int EncodePerson(Person* person, UInt8** stream, UInt32* length)
 	int ret;
 	BUF_INTEGER* pTempBuf = NULL;
 	
-	// ±àÂëname
 	ret = EncodeStringToAnyBuf(&pTempBuf, (unsigned char*)person->name, strlen(person->name));
 	if (ret != TLV_NO_ERROR)
 	{

@@ -1,15 +1,17 @@
-#define _CRT_SECURE_NO_WARNINGS	// ½â¾ö²»°²È«º¯Êıstrcpy()²úÉúµÄ¾¯¸æ
+#define _CRT_SECURE_NO_WARNINGS	// strcpy() warning
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
-#include "test.h"
+
+#include "person_codec.h"
 
 int main(int argc, char* argv[])
 {
-	printf("²âÊÔ±à½âÂë½Ó¿Ú...\n");
+	printf("æµ‹è¯•ç¼–è§£ç æ¥å£...\n");
 
+	// æ„å»ºæ•°æ®
 	Person person;
 	strcpy(person.name, "zhangfei");
 	person.age = 18;
@@ -19,25 +21,25 @@ int main(int argc, char* argv[])
 	UInt8* stream = NULL;
 	UInt32 len = 0;
 
-	// ±àÂë
+	// ç¼–ç 
 	EncodePerson(&person, &stream, &len);
 
-	// Ğ´ÎÄ¼ş
+	// å†™æ–‡ä»¶
 	WriteStreamToFile(stream, len);
 
 	Person* pPerson = NULL;
 
-	// ½âÂë
+	// è§£ç 
 	DecodePerson(stream, len, &pPerson);
 
-	// ±È½Ï
+	// æ¯”è¾ƒå·®å¼‚
 	if (IsPersonEqual(&person, pPerson))
 	{
-		printf("±à½âÂë²âÊÔ£º³É¹¦...\n");
+		printf("ç¼–è§£ç æµ‹è¯•: æˆåŠŸ...\n");
 	}
 	else
 	{
-		printf("±à½âÂë²âÊÔ£ºÊ§°Ü...\n");
+		printf("ç¼–è§£ç æµ‹è¯•: å¤±è´¥...\n");
 	}
 
 	return 0;
