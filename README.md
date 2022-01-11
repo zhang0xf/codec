@@ -4,7 +4,7 @@ TLV encoding and decoding implement
 
 ## 开发环境
 
-### 1. WSL + vscode
+### 1. WSL + vscode (or linux)
 
 使用WSL + vscode搭建开发环境：[WSL + vscode](https://github.com/zhang0xf/md/blob/main/WSL/WSL.md)
 
@@ -14,8 +14,8 @@ TLV encoding and decoding implement
 * `gcc -v`
 
 ### 3. 安装make
-`apt-get install make`
-`make -v`
+* `apt-get install make`
+* `make -v`
 
 ## 编译demo
 
